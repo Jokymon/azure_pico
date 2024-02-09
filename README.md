@@ -134,3 +134,48 @@ mpremote cp baltimore.cer :
 ```
 
 Now everything is ready for the communication between the IoT hub and the device.
+
+## What's implemented
+
+All the functionality for IoT-Hub messages and direct methods is implemented in
+`pico_src/demo.py`.
+
+At the moment, the Pico could send a "Device2Cloud" message when a button is
+pressed, in case you connected a button to GPIO14.
+
+Additionally, you can send the plain text messages `led_on` and `led_off` as
+"Cloud2Device" messages and the onboard LED of the Pico will be turned on or
+off.
+
+As an addition to the original article, I also implemented direct method
+handling. On the Pico side you can now simply add new methods to the class
+`DirectMethodHandler` to implement new methods. As a demo, I implemented a
+method called `hello`. In order to call this method from the Azure portal,
+you go to the "Direct Method" tab of your device and fill out the fields as
+follows:
+
+ - **Method name**: `hello`
+ - **Payload**: 
+```json
+{
+    "param1": "value1",
+    "param2": 324
+}
+```
+
+This will print `Called 'hello' with value1 and 324`. In the Azure portal,
+you will also see a JSON document in the Result field which should look
+somewhat like this:
+
+```json
+{
+    "status": 200,
+    "payload": {
+        "result": "That is very good"
+    }
+}
+```
+
+
+When implementing your own direct methods this way, make sure that the JSON
+field names match the names of the Python functions.
