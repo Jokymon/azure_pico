@@ -105,3 +105,32 @@ Form a powershell on your local PC, run the following command:
 This will create a new resource group and within that, a new IoT hub. You can check this using the
 Azure portal website.
 
+### Prepare the Pico for IoT Hub connection
+
+In order for the Raspberry Pi Pico to be allowed to send messages to the IoT-Hub, it needs to be
+registered there. This happens by registering a new device in the IoT-Hub. For this I also created
+a script. To create a new device that you want to call `pico1` (choose your own name here), you
+simply run the following command on an powershell
+
+```powershell
+.\create_device.ps1 pico1
+```
+
+This will create a new device in the Azure IoT Hub and place a corresponding credentials file in
+the `pico_config/` folder. In the above case you should find the file `pico_config/azure-pico1.json`.
+This file needs to be copied to the Raspberry Pi, which can be done using `mpremote`. Note that we
+copy the file **without the deviceid** and it will only be named `azure.json` on the device:
+
+```
+mpremote cp pico_config/azure-pico1.json :config/azure.json
+```
+
+Additionally our Pico needs a special certificate so that IoT-Hub and Pico will trust each other.
+This certificate is lazily checked into this project but should probably be fetched from some
+official location at some point:
+
+```
+mpremote cp baltimore.cer :
+```
+
+Now everything is ready for the communication between the IoT hub and the device.
