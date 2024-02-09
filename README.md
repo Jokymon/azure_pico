@@ -83,3 +83,25 @@ mip.install("hmac")
 mip.install("umqtt")
 ```
 
+### Setup the Azure IoT Hub
+
+Of course, you could create you IoT hub manually through the Azure portal website. However for this
+experiment, I wanted to implement a slightly more automatable approach by using 
+[Bicep](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview?tabs=bicep) and 
+the [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli). So, for the next
+steps, make sure that you have the `az` tool installed and that you are logged into the Azure
+subscription you want to use for the experiments.
+
+I have chosen a few names and also my preferred location of the subscription and the IoT hub in the
+file `azure/config.ps1`. If you prefer a different location and different subscription- and IoT-Hub
+names, just change them in this file before continuing with the next steps.
+
+Form a powershell on your local PC, run the following command:
+
+```powershell
+.\bringup.ps1
+```
+
+This will create a new resource group and within that, a new IoT hub. You can check this using the
+Azure portal website.
+
