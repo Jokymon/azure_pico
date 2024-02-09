@@ -1,6 +1,7 @@
 # Azure Pico Demo
 
-This repository contains the source code for a little demo that I describe in some detail on my blog under (From Pi Pico to Azure with Micropython and Bicep)[hiseyesuncovered.wordpress.com/].
+This repository contains the source code for a little demo that I describe in some detail on my blog under
+[From Pi Pico to Azure with Micropython and Bicep](https://hiseyesuncovered.wordpress.com/2024/02/09/from-pi-pico-to-azure-with-micropython-and-bicep/).
 
 ## Getting started
 
@@ -135,7 +136,17 @@ mpremote cp baltimore.cer :
 
 Now everything is ready for the communication between the IoT hub and the device.
 
-## What's implemented
+## Running everything
+
+To start the Azure client on the Pico, you have to connect to the Pico using
+`mpremote` and then run the following lines on the remote REPL:
+
+```python
+import demo
+demo.main()
+```
+
+### What's implemented
 
 All the functionality for IoT-Hub messages and direct methods is implemented in
 `pico_src/demo.py`.
@@ -175,7 +186,6 @@ somewhat like this:
     }
 }
 ```
-
 
 When implementing your own direct methods this way, make sure that the JSON
 field names match the names of the Python functions.
