@@ -1,0 +1,4 @@
+.venv/
+
+# folder with the generated config files
+pico_config/
