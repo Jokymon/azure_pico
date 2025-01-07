@@ -20,12 +20,18 @@ def main():
             else:
                 print("Configuration file is not overwritten")
                 return
+        else:
+            wlan_config[ssid] = password
     else:
         wlan_config = {
             ssid: password
         }
 
-    with open(wlan_config_file, "w"):
+    pico_config_folder = pathlib.Path("pico_config")
+    if not pico_config_folder.exists():
+        pico_config_folder.mkdir()
+
+    with open(wlan_config_file, "w") as f:
         json.dump(wlan_config, f, indent=4)
 
 
