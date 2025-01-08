@@ -16,6 +16,7 @@ button = Pin(14, Pin.IN, Pin.PULL_DOWN)
 topic_msg = b'{"buttonpressed":"1"}'
 MQTT_PORT = 0
 
+dm_request_sub = "$iothub/methods/POST/#"
 twin_patch_sub = '$iothub/twin/PATCH/properties/reported/?$rid=%d'
 
 dm_pub = '$iothub/methods/res/200/?$rid='
@@ -75,6 +76,7 @@ class AzureClient:
 
         self.client.set_callback(self.callback_handler)
         self.client.subscribe(topic="#")
+        self.client.subscribe(topic=dm_request_sub)
 
     def reconnect(self):
         print('Failed to connect to the MQTT Broker. Reconnecting...')
