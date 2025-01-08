@@ -16,15 +16,17 @@ def main():
             yn = input(f"SSID {ssid} already exists in config. Overwrite? [yN]")
             if yn == "y":
                 print("Overwriting existing SSID password ")
-                wlan_config[ssid] = password
+                wlan_config[ssid] = {"password": password}
             else:
                 print("Configuration file is not overwritten")
                 return
         else:
-            wlan_config[ssid] = password
+            wlan_config[ssid] = {"password": password}
     else:
         wlan_config = {
-            ssid: password
+            ssid: {
+                "password": password
+            }
         }
 
     pico_config_folder = pathlib.Path("pico_config")
