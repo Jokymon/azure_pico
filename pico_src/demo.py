@@ -1,5 +1,6 @@
 import az_client
 import networking
+import ssl
 import time
 import ntptime
 import machine
@@ -58,11 +59,7 @@ class AzureClient:
 
     def connect(self, config):
         self.config = config
-        certificate_path = "baltimore.cer"
-        print('Loading Blatimore Certificate')
-        with open(certificate_path, 'r') as f:
-            cert = f.read()
-        sslparams = {'cert': cert}
+        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
 
         self.client = MQTTClient(client_id=config.deviceid,
                                  server=config.hostname,
@@ -70,7 +67,7 @@ class AzureClient:
                                  user=config.username,
                                  password=config.password,
                                  keepalive=3600,
-                                 ssl=True, ssl_params=sslparams)
+                                 ssl=ssl_context)
         self.client.connect()
         print('Connected to IoT Hub MQTT Broker')
 

@@ -81,7 +81,7 @@ networking.get_wlan()
 import mip
 mip.install("base64")
 mip.install("hmac")
-mip.install("umqtt")
+mip.install("umqtt.simple")
 ```
 
 ### Setup the Azure IoT Hub
@@ -124,14 +124,6 @@ copy the file **without the deviceid** and it will only be named `azure.json` on
 
 ```
 mpremote cp pico_config/azure-pico1.json :config/azure.json
-```
-
-Additionally our Pico needs a special certificate so that IoT-Hub and Pico will trust each other.
-This certificate is lazily checked into this project but should probably be fetched from some
-official location at some point:
-
-```
-mpremote cp baltimore.cer :
 ```
 
 Now everything is ready for the communication between the IoT hub and the device.
